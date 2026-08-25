@@ -2,7 +2,6 @@ import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import { PackageSearch, UserPlus, LifeBuoy, Wrench } from "lucide-react";
 
 import {
   Conversation,
@@ -33,12 +32,6 @@ const SUGGESTIONS = [
   "I'd like a quote for 25 backpacks for my company",
   "This is the third time I'm asking — I want a human",
 ];
-
-const TOOL_ICONS: Record<string, typeof Wrench> = {
-  lookup_order: PackageSearch,
-  capture_lead: UserPlus,
-  escalate_to_human: LifeBuoy,
-};
 
 export function ChatWindow({
   conversationId,
@@ -135,9 +128,6 @@ export function ChatWindow({
                     );
                   }
                   if (part.type.startsWith("tool-")) {
-                    const toolName = part.type.replace("tool-", "");
-                    const Icon = TOOL_ICONS[toolName] ?? Wrench;
-                    void Icon;
                     const toolPart = part as unknown as {
                       type: `tool-${string}`;
                       state: "input-streaming" | "input-available" | "output-available" | "output-error";
